@@ -1,0 +1,71 @@
+import os
+import glob
+import path
+import cv2
+from collections import OrderedDict
+
+
+def main():
+    train_path = "./mnist/train/"
+    test_path = "./mnist/test/"
+
+    train_paths = glob.glob(train_path + '/*')
+    test_paths = glob.glob(test_path + '/*')
+
+    train_dataset = read_image_and_label(train_paths)
+    test_dataset = read_image_and_label(test_paths)
+
+    save_npy(train_dataset, test_dataset)
+
+    data_dict = read_npy()
+
+    save_pickle(data_dict)
+
+    image = data_dict['train_image'][0]
+
+    data_augment(image)
+
+
+
+def read_image_and_label(path):
+    # TODO: with image folders path, read images and make label ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    images = None
+    labels = None
+    return images, labels
+
+
+def save_npy(train_dataset, test_dataset):
+    train_images, train_labels = train_dataset
+    test_images, test_labels = test_dataset
+
+    np.save("./train_images.npy",train_images)
+    np.save("./test_images.npy", test_images)
+    np.save("./train_labels.npy", train_labels)
+    np.save("./test_labels.npy", test_labels)
+
+def read_npy():
+    # TODO: read npy files and return dictionary
+    """
+     data = {'train image': [train_images],
+             'train label': [train_labels],
+             'test_image': [test_images],
+             'test_label': [test_labels]
+            }
+     """
+    data_dict = OrderedDict()
+
+    return data_dict
+
+def save_pickle(data_dict):
+    # TODO: save data_dict as pickle (erase "return 0" when you finish write your code)
+    return 0
+
+
+def data_augment(image):
+    # TODO: use cv2.flip, cv2.rotate, cv2.resize and save each augmented image
+    cv2.imwrite("./original.jpg",image)
+
+
+
+if __name__ == "__main__":
+    main()
