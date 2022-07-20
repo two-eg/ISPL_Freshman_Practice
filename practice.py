@@ -2,15 +2,16 @@ import os
 import glob
 import path
 import cv2
+import numpy as np
 from collections import OrderedDict
-
+import pickle
 
 def main():
     train_path = "./mnist/train/"
     test_path = "./mnist/test/"
 
-    train_paths = glob.glob(train_path + '/*')
-    test_paths = glob.glob(test_path + '/*')
+    train_paths = glob.glob(train_path + '/*/*')
+    test_paths = glob.glob(test_path + '/*/*')
 
     train_dataset = read_image_and_label(train_paths)
     test_dataset = read_image_and_label(test_paths)
@@ -27,8 +28,9 @@ def main():
 
 
 
-def read_image_and_label(path):
-    # TODO: with image folders path, read images and make label ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+def read_image_and_label(paths):
+    # TODO: with image folders path, read images and make label with image paths)
+    # DO NOT use dataset zoo from pytorch or tensorflow
     images = None
     labels = None
     return images, labels
@@ -53,19 +55,15 @@ def read_npy():
             }
      """
     data_dict = OrderedDict()
-
     return data_dict
 
 def save_pickle(data_dict):
     # TODO: save data_dict as pickle (erase "return 0" when you finish write your code)
     return 0
 
-
 def data_augment(image):
     # TODO: use cv2.flip, cv2.rotate, cv2.resize and save each augmented image
     cv2.imwrite("./original.jpg",image)
-
-
 
 if __name__ == "__main__":
     main()
